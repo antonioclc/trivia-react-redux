@@ -32,6 +32,11 @@ class Login extends Component {
     });
   }
 
+  configurationRedirect() {
+    const { history } = this.props;
+    history.push('/configurations');
+  }
+
   validateInfos() {
     const { name, email } = this.state;
     let nameValid = false;
@@ -58,40 +63,49 @@ class Login extends Component {
   render() {
     const { name, email, disableBtn } = this.state;
     return (
-      <form onSubmit={ this.handleSubmit }>
-        <label htmlFor="input-player-name">
-          Nome:
-          <input
-            type="text"
-            data-testid="input-player-name"
-            id="input-player-name"
-            name="name"
-            value={ name }
-            placeholder="Digite aqui seu nome"
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label htmlFor="input-gravatar-email">
-          Email:
-          <input
-            type="email"
-            data-testid="input-gravatar-email"
-            id="input-gravatar-email"
-            name="email"
-            value={ email }
-            placeholder="Digite aqui seu email"
-            onChange={ this.handleChange }
-          />
-        </label>
+      <>
+        <form onSubmit={ this.handleSubmit }>
+          <label htmlFor="input-player-name">
+            Nome:
+            <input
+              type="text"
+              data-testid="input-player-name"
+              id="input-player-name"
+              name="name"
+              value={ name }
+              placeholder="Digite aqui seu nome"
+              onChange={ this.handleChange }
+            />
+          </label>
+          <label htmlFor="input-gravatar-email">
+            Email:
+            <input
+              type="email"
+              data-testid="input-gravatar-email"
+              id="input-gravatar-email"
+              name="email"
+              value={ email }
+              placeholder="Digite aqui seu email"
+              onChange={ this.handleChange }
+            />
+          </label>
+          <button
+            data-testid="btn-play"
+            type="submit"
+            id="btn-play"
+            disabled={ disableBtn }
+          >
+            Jogar
+          </button>
+        </form>
         <button
-          data-testid="btn-play"
-          type="submit"
-          id="btn-play"
-          disabled={ disableBtn }
+          type="button"
+          data-testid="btn-settings"
+          onClick={ () => this.configurationRedirect() }
         >
-          Jogar
+          Configurações
         </button>
-      </form>
+      </>
     );
   }
 }
