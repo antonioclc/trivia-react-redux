@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setUserData } from '../actions';
+import { setUserData, getTokenThunk } from '../actions';
 
 class Login extends Component {
   constructor() {
@@ -47,10 +47,12 @@ class Login extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { dispatchSetValue } = this.props;
+    const { dispatchSetValue, dispatchTokenThunk, history } = this.props;
     const { name, email } = this.state;
     dispatchSetValue({ name, email });
     this.clearInputs();
+    dispatchTokenThunk();
+    history.push('/trivia');
   }
 
   render() {
@@ -96,10 +98,17 @@ class Login extends Component {
 
 Login.propTypes = {
   dispatchSetValue: PropTypes.func.isRequired,
+  dispatchTokenThunk: PropTypes.func.isRequired,
+  history: PropTypes.shape().isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  token: state.playerReducer.token,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchSetValue: (state) => dispatch(setUserData(state)),
+  dispatchTokenThunk: () => dispatch(getTokenThunk()),
 });
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

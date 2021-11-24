@@ -1,8 +1,9 @@
-import { SET_USER_DATA } from '../actions';
+import { SET_USER_DATA, SAVE_TOKEN_DATA } from '../actions';
 
 const INITIAL_STATE = {
   name: '',
   email: '',
+  token: {},
 };
 
 export default function playerReducer(state = INITIAL_STATE, action) {
@@ -12,6 +13,11 @@ export default function playerReducer(state = INITIAL_STATE, action) {
       ...state,
       name: action.payload.name,
       email: action.payload.email,
+    };
+  case SAVE_TOKEN_DATA:
+    return {
+      ...state,
+      token: action.payload,
     };
   default: return state;
   }
