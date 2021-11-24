@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setUserData } from '../actions';
@@ -28,7 +29,7 @@ class Login extends Component {
     this.setState({
       name: '',
       email: '',
-    })
+    });
   }
 
   validateInfos() {
@@ -92,6 +93,10 @@ class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  dispatchSetValue: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchSetValue: (state) => dispatch(setUserData(state)),
