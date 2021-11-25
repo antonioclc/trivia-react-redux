@@ -7,36 +7,82 @@ class Trivia extends Component {
   constructor() {
     super();
 
+    this.state = {
+      answered: false,
+      answersArr: [],
+      firstTime: true,
+      correctAnswer: '',
+      questionIndex: 0,
+    };
+
     this.getAnswers = this.getAnswers.bind(this);
+    this.shuffleArray = this.shuffleArray.bind(this);
+    this.handleAnswerClick = this.handleAnswerClick.bind(this);
+    this.setClassname = this.setClassname.bind(this);
+  }
+
+  setClassname(answer) {
+    const { answered, correctAnswer } = this.state;
+    if (answered) {
+      return answer !== correctAnswer ? 'incorrect-answer' : 'correct-answer';
+    }
+    return '';
   }
 
   getAnswers() {
-    const { questions } = this.props;
-    const wrongAnswers = questions[0].incorrect_answers.map((answer, index) => (
-      <button
-        type="button"
-        key={ index }
-        data-testid={ `wrong-answer-${index}` }
-      >
-        {answer}
+    const { answersArr, correctAnswer } = this.state;
+    const StrCorrectAnswer = 'correct-answer';
+    const allAnswers = answersArr
+      // .filter((answer) => answer !== correctAnswer)
+      .map((answer, index) => (
+        <button
+          type="button"
+          name={ answer !== correctAnswer ? 'incorrect-answer' : StrCorrectAnswer }
+          key={ index }
+          data-testid={
+            answer !== correctAnswer ? `wrong-answer-${index}` : StrCorrectAnswer
+          }
+          onClick={ this.handleAnswerClick }
+          className={ this.setClassname(answer) }
+        >
+          {answer}
 
-      </button>
-    ));
-    const allAnswers = [
-      ...wrongAnswers,
-      <button
-        type="button"
-        key="correct-answer"
-        data-testid="correct-answer"
-      >
-        {questions[0].correct_answer}
+        </button>
+      ));
 
-      </button>];
     return allAnswers;
+  }
+
+  // a função shuffleArray utilizamos do link: https://www.horadecodar.com.br/2021/05/10/como-embaralhar-um-array-em-javascript-shuffle/
+  shuffleArray(arr) {
+    // Loop em todos os elementos
+    for (let i = arr.length - 1; i > 0; i -= 1) {
+      // Escolhendo elemento aleatório
+      const j = Math.floor(Math.random() * (i + 1));
+      // Reposicionando elemento
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    // Retornando array com aleatoriedade
+    return arr;
+  }
+
+  handleAnswerClick() {
+    this.setState({ answered: true });
   }
 
   render() {
     const { questions } = this.props;
+    const { firstTime, questionIndex } = this.state;
+    if (questions && firstTime) {
+      const answersArray = [
+        ...questions[questionIndex].incorrect_answers,
+        questions[questionIndex].correct_answer];
+      this.setState({
+        answersArr: this.shuffleArray(answersArray),
+        firstTime: false,
+        correctAnswer: questions[0].correct_answer,
+      });
+    }
     return (
       <div>
         <Header />
@@ -45,7 +91,7 @@ class Trivia extends Component {
             <>
               <p data-testid="question-category">{questions[0].category}</p>
               <p data-testid="question-text">{questions[0].question}</p>
-              {this.getAnswers()}
+              { this.getAnswers() }
             </>
           )
         }
