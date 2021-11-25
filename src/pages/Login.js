@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setUserData, getTokenThunk } from '../actions';
 
@@ -50,13 +50,13 @@ class Login extends Component {
     }
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
     const { dispatchSetValue, dispatchTokenThunk, history } = this.props;
     const { name, email } = this.state;
     dispatchSetValue({ name, email });
     this.clearInputs();
-    dispatchTokenThunk();
+    await dispatchTokenThunk();
     history.push('/trivia');
   }
 
