@@ -12,15 +12,25 @@ class Trivia extends Component {
       answersArr: [],
       firstTime: true,
       correctAnswer: '',
+      questionIndex: 0,
     };
 
     this.getAnswers = this.getAnswers.bind(this);
     this.shuffleArray = this.shuffleArray.bind(this);
     this.handleAnswerClick = this.handleAnswerClick.bind(this);
+    this.setClassname = this.setClassname.bind(this);
+  }
+
+  setClassname(answer) {
+    const { answered, correctAnswer } = this.state;
+    if (answered) {
+      return answer !== correctAnswer ? 'incorrect-answer' : 'correct-answer';
+    }
+    return '';
   }
 
   getAnswers() {
-    const { answered, answersArr, correctAnswer } = this.state;
+    const { answersArr, correctAnswer } = this.state;
     const StrCorrectAnswer = 'correct-answer';
     const allAnswers = answersArr
       // .filter((answer) => answer !== correctAnswer)
@@ -33,9 +43,7 @@ class Trivia extends Component {
             answer !== correctAnswer ? `wrong-answer-${index}` : StrCorrectAnswer
           }
           onClick={ this.handleAnswerClick }
-          className={ answered ? (
-            (answer !== correctAnswer) ? 'incorrect-answer' : StrCorrectAnswer
-          ) : null }
+          className={ this.setClassname(answer) }
         >
           {answer}
 
@@ -64,10 +72,11 @@ class Trivia extends Component {
 
   render() {
     const { questions } = this.props;
-    const { firstTime } = this.state;
+    const { firstTime, questionIndex } = this.state;
     if (questions && firstTime) {
       const answersArray = [
-        ...questions[0].incorrect_answers, questions[0].correct_answer];
+        ...questions[questionIndex].incorrect_answers,
+        questions[questionIndex].correct_answer];
       this.setState({
         answersArr: this.shuffleArray(answersArray),
         firstTime: false,
