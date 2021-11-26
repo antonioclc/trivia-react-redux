@@ -1,10 +1,12 @@
-import { SET_USER_DATA, SAVE_TOKEN_DATA, SAVE_QUESTIONS_DATA } from '../actions';
+import { SET_USER_DATA, SAVE_TOKEN_DATA, SAVE_QUESTIONS_DATA,
+  UPDATE_POINTS } from '../actions';
 
 const INITIAL_STATE = {
   name: '',
   email: '',
   token: {},
   questions: {},
+  points: 0,
 };
 
 export default function playerReducer(state = INITIAL_STATE, action) {
@@ -24,6 +26,11 @@ export default function playerReducer(state = INITIAL_STATE, action) {
     return {
       ...state,
       questions: action.payload,
+    };
+  case UPDATE_POINTS:
+    return {
+      ...state,
+      points: action.payload,
     };
   default: return state;
   }
