@@ -25,13 +25,10 @@ class Trivia extends Component {
     this.setClassname = this.setClassname.bind(this);
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_prevProps, prevState) {
     // função que verifica se o temporizado zerou
-    if (prevState.seconds === TIME_LIMIT) {
-      this.setState({
-        seconds: 30,
-      });
-    }
+    const { seconds } = this.state;
+    if (prevState.seconds !== seconds) this.answeredOrTimeout();
   }
 
   setTimer() {
@@ -40,10 +37,6 @@ class Trivia extends Component {
         seconds: prevState.seconds - 1,
       }));
     }, ONE_SECOND);
-  }
-
-  stopTimer() {
-    
   }
 
   setClassname(answer) {
@@ -55,7 +48,7 @@ class Trivia extends Component {
   }
 
   getAnswers() {
-    const { answersArr, correctAnswer } = this.state;
+    const { answersArr, correctAnswer, answered } = this.state;
     const StrCorrectAnswer = 'correct-answer';
     const allAnswers = answersArr
       // .filter((answer) => answer !== correctAnswer)
@@ -69,6 +62,7 @@ class Trivia extends Component {
           }
           onClick={ this.handleAnswerClick }
           className={ this.setClassname(answer) }
+          disabled={ answered }
         >
           {answer}
 
@@ -76,6 +70,14 @@ class Trivia extends Component {
       ));
 
     return allAnswers;
+  }
+
+  answeredOrTimeout() {
+    const { answered, seconds } = this.state;
+    if (seconds === TIME_LIMIT || answered) {
+      this.setState({ answered: true });
+      clearInterval(this.timerID);
+    }
   }
 
   // a função shuffleArray utilizamos do link: https://www.horadecodar.com.br/2021/05/10/como-embaralhar-um-array-em-javascript-shuffle/
