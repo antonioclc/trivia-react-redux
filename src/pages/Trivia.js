@@ -97,14 +97,17 @@ class Trivia extends Component {
 
   handleAnswerClick({ target }) {
     const { difficulty, seconds } = this.state;
-    const { setPoints } = this.props;
+    const { setPoints, points } = this.props;
+    const getObjPlayer = JSON.parse(localStorage.getItem('state'));
+    // let scoreActual = getObjPlayer.player.score;
     if (target.name === 'correct-answer') {
-      const previewPoints = localStorage.getItem('points') || 0;
+      // const previewPoints = localStorage.getItem('points') || 0;
       const difficultyPoints = { easy: 1, medium: 2, hard: 3 };
       const basicPoint = 10;
       const questionPoints = basicPoint + (seconds * difficultyPoints[difficulty]);
-      const totalPoints = Number(previewPoints) + questionPoints;
-      localStorage.setItem('points', totalPoints);
+      const totalPoints = Number(points) + questionPoints;
+      getObjPlayer.player.score = totalPoints;
+      localStorage.setItem('state', JSON.stringify(getObjPlayer));
       setPoints(totalPoints);
     }
     this.setState({ answered: true });
@@ -146,10 +149,13 @@ class Trivia extends Component {
 
 Trivia.propTypes = {
   questions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setPoints: PropTypes.func.isRequired,
+  points: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   questions: state.playerReducer.questions.results,
+  points: state.playerReducer.points,
 });
 
 const mapDispatchToProps = (dispatch) => ({

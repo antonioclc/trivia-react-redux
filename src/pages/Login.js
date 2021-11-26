@@ -52,8 +52,18 @@ class Login extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    const { dispatchSetValue, dispatchTokenThunk, history } = this.props;
     const { name, email } = this.state;
+    // padrão do readme
+    const storageObj = {
+      player: {
+        name,
+        assertions: '',
+        score: 0,
+        gravatarEmail: email,
+      } };
+    localStorage.setItem('state', JSON.stringify(storageObj));
+
+    const { dispatchSetValue, dispatchTokenThunk, history } = this.props;
     dispatchSetValue({ name, email });
     this.clearInputs();
     await dispatchTokenThunk();
