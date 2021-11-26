@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 
+const ONE_SECOND = 1000;
+const TIME_LIMIT = 0;
+
 class Trivia extends Component {
   constructor() {
     super();
@@ -13,12 +16,34 @@ class Trivia extends Component {
       firstTime: true,
       correctAnswer: '',
       questionIndex: 0,
+      seconds: 30,
     };
 
     this.getAnswers = this.getAnswers.bind(this);
     this.shuffleArray = this.shuffleArray.bind(this);
     this.handleAnswerClick = this.handleAnswerClick.bind(this);
     this.setClassname = this.setClassname.bind(this);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // função que verifica se o temporizado zerou
+    if (prevState.seconds === TIME_LIMIT) {
+      this.setState({
+        seconds: 30,
+      });
+    }
+  }
+
+  setTimer() {
+    this.timerID = setInterval(() => {
+      this.setState((prevState) => ({
+        seconds: prevState.seconds - 1,
+      }));
+    }, ONE_SECOND);
+  }
+
+  stopTimer() {
+    
   }
 
   setClassname(answer) {
@@ -72,7 +97,7 @@ class Trivia extends Component {
 
   render() {
     const { questions } = this.props;
-    const { firstTime, questionIndex } = this.state;
+    const { firstTime, questionIndex, seconds } = this.state;
     if (questions && firstTime) {
       const answersArray = [
         ...questions[questionIndex].incorrect_answers,
@@ -82,6 +107,7 @@ class Trivia extends Component {
         firstTime: false,
         correctAnswer: questions[0].correct_answer,
       });
+      this.setTimer();
     }
     return (
       <div>
@@ -92,6 +118,7 @@ class Trivia extends Component {
               <p data-testid="question-category">{questions[0].category}</p>
               <p data-testid="question-text">{questions[0].question}</p>
               { this.getAnswers() }
+              <p>{ seconds }</p>
             </>
           )
         }
