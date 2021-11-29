@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
-import { updatePoints } from '../actions';
+import { updatePoints, updateSuccess } from '../actions';
 
 const ONE_SECOND = 1000;
 const TIME_LIMIT = 0;
-const ansewok = 'correct-answer';
+const answeredOk = 'correct-answer';
 
 class Trivia extends Component {
   constructor() {
@@ -46,14 +46,14 @@ class Trivia extends Component {
   setClassname(answer) {
     const { answered, correctAnswer } = this.state;
     if (answered) {
-      return answer !== correctAnswer ? 'incorrect-answer' : ansewok;
+      return answer !== correctAnswer ? 'incorrect-answer' : answeredOk;
     }
     return '';
   }
 
   getAnswers() {
     const { answersArr, correctAnswer, answered } = this.state;
-    const StrCorrectAnswer = ansewok;
+    const StrCorrectAnswer = answeredOk;
     const allAnswers = answersArr
       // .filter((answer) => answer !== correctAnswer)
       .map((answer, index) => (
@@ -98,7 +98,7 @@ class Trivia extends Component {
 
   handleAnswerClick({ target }) {
     const { difficulty, seconds } = this.state;
-    const { setPoints, points } = this.props;
+    const { setPoints, points, setSuccess } = this.props;
     const getObjPlayer = JSON.parse(localStorage.getItem('state'));
     // let scoreActual = getObjPlayer.player.score;
     if (target.name === 'correct-answer') {
@@ -110,6 +110,7 @@ class Trivia extends Component {
       getObjPlayer.player.score = totalPoints;
       localStorage.setItem('state', JSON.stringify(getObjPlayer));
       setPoints(totalPoints);
+      setSuccess();
     }
     this.setState({ answered: true });
   }
@@ -182,6 +183,7 @@ Trivia.propTypes = {
   questions: PropTypes.arrayOf(PropTypes.object).isRequired,
   history: PropTypes.shape().isRequired,
   setPoints: PropTypes.func.isRequired,
+  setSuccess: PropTypes.func.isRequired,
   points: PropTypes.number.isRequired,
 };
 
@@ -192,6 +194,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   setPoints: (points) => dispatch(updatePoints(points)),
+  setSuccess: () => dispatch(updateSuccess()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Trivia);

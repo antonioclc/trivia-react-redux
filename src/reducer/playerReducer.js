@@ -1,5 +1,5 @@
 import { SET_USER_DATA, SAVE_TOKEN_DATA, SAVE_QUESTIONS_DATA,
-  UPDATE_POINTS } from '../actions';
+  UPDATE_POINTS, UPDATE_SUCCESS } from '../actions';
 
 const INITIAL_STATE = {
   name: '',
@@ -7,9 +7,11 @@ const INITIAL_STATE = {
   token: {},
   questions: {},
   points: 0,
+  answeredCorrectly: 0,
 };
 
 export default function playerReducer(state = INITIAL_STATE, action) {
+  const { answeredCorrectly } = state;
   switch (action.type) {
   case SET_USER_DATA:
     return {
@@ -31,6 +33,11 @@ export default function playerReducer(state = INITIAL_STATE, action) {
     return {
       ...state,
       points: action.payload,
+    };
+  case UPDATE_SUCCESS:
+    return {
+      ...state,
+      answeredCorrectly: answeredCorrectly + 1,
     };
   default: return state;
   }
