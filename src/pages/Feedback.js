@@ -4,11 +4,22 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 
 class Feedback extends Component {
+  constructor() {
+    super();
+
+    this.playAgain = this.playAgain.bind(this);
+  }
+
   feedbackMessageGenerator() {
     const { numberOfSuccess } = this.props;
     const MIN = 3;
     if (numberOfSuccess < MIN) return 'Podia ser melhor...';
     return 'Mandou bem!';
+  }
+
+  playAgain() {
+    const { history } = this.props;
+    history.push('/');
   }
 
   render() {
@@ -25,25 +36,25 @@ class Feedback extends Component {
 
         </p>
         <p data-testid="feedback-total-score">
-          Você fez
-          { ' ' }
           { totalScore }
-          { ' ' }
-          pontos.
         </p>
         <p data-testid="feedback-total-question">
-          Você acertou
-          { ' ' }
           { numberOfSuccess }
-          { ' ' }
-          questões.
         </p>
+        <button
+          data-testid="btn-play-again"
+          type="button"
+          onClick={ this.playAgain }
+        >
+          Jogar novamente
+        </button>
       </div>
     );
   }
 }
 
 Feedback.propTypes = {
+  history: PropTypes.shape().isRequired,
   numberOfSuccess: PropTypes.number.isRequired,
   totalScore: PropTypes.number.isRequired,
 };

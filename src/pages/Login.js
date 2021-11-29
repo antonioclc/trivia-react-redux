@@ -57,7 +57,7 @@ class Login extends Component {
     const storageObj = {
       player: {
         name,
-        assertions: '',
+        assertions: 0,
         score: 0,
         gravatarEmail: email,
       } };
