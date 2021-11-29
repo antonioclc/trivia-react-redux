@@ -12,6 +12,7 @@ class Feedback extends Component {
   }
 
   render() {
+    const { numberOfSuccess, totalScore } = this.props;
     return (
       <div>
         <Header />
@@ -23,6 +24,20 @@ class Feedback extends Component {
           {' '}
 
         </p>
+        <p data-testid="feedback-total-score">
+          Você fez
+          { ' ' }
+          { totalScore }
+          { ' ' }
+          pontos.
+        </p>
+        <p data-testid="feedback-total-question">
+          Você acertou
+          { ' ' }
+          { numberOfSuccess }
+          { ' ' }
+          questões.
+        </p>
       </div>
     );
   }
@@ -30,10 +45,12 @@ class Feedback extends Component {
 
 Feedback.propTypes = {
   numberOfSuccess: PropTypes.number.isRequired,
+  totalScore: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   numberOfSuccess: state.playerReducer.answeredCorrectly,
+  totalScore: state.playerReducer.points,
 });
 
 export default connect(mapStateToProps)(Feedback);
