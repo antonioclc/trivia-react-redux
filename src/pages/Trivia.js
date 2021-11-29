@@ -20,6 +20,7 @@ class Trivia extends Component {
       questionIndex: 0,
       seconds: 30,
       difficulty: '',
+      assertions: 0,
     };
 
     this.getAnswers = this.getAnswers.bind(this);
@@ -98,11 +99,12 @@ class Trivia extends Component {
 
   handleAnswerClick({ target }) {
     const { difficulty, seconds } = this.state;
-    const { setPoints, points, setSuccess } = this.props;
-    const getObjPlayer = JSON.parse(localStorage.getItem('state'));
     // let scoreActual = getObjPlayer.player.score;
+    const { setPoints, points, setSuccess } = this.props;
     if (target.name === 'correct-answer') {
       // const previewPoints = localStorage.getItem('points') || 0;
+      const getObjPlayer = JSON.parse(localStorage.getItem('state'));
+      this.setState((prevState) => ({ assertions: prevState.assertions + 1 }));
       const difficultyPoints = { easy: 1, medium: 2, hard: 3 };
       const basicPoint = 10;
       const questionPoints = basicPoint + (seconds * difficultyPoints[difficulty]);
@@ -127,6 +129,10 @@ class Trivia extends Component {
         seconds: 30,
       }));
     } else {
+      const { assertions } = this.state;
+      const getObjPlayer = JSON.parse(localStorage.getItem('state'));
+      getObjPlayer.player.assertions = assertions;
+      localStorage.setItem('state', JSON.stringify(getObjPlayer));
       history.push('/feedback');
     }
   }
@@ -167,10 +173,10 @@ class Trivia extends Component {
             <>
               <p data-testid="question-category">{questions[questionIndex].category}</p>
               <p data-testid="question-text">{questions[questionIndex].question}</p>
-              { this.getAnswers() }
-              <p>{ seconds }</p>
-              {answered && nextButton }
-              <p>{ difficulty }</p>
+              {this.getAnswers()}
+              <p>{seconds}</p>
+              {answered && nextButton}
+              <p>{difficulty}</p>
             </>
           )
         }
@@ -190,6 +196,7 @@ Trivia.propTypes = {
 const mapStateToProps = (state) => ({
   questions: state.playerReducer.questions.results,
   points: state.playerReducer.points,
+  numberOfSuccess: state.playerReducer.answeredCorrectly,
 });
 
 const mapDispatchToProps = (dispatch) => ({
