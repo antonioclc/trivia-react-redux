@@ -23,6 +23,7 @@ class Trivia extends Component {
     this.shuffleArray = this.shuffleArray.bind(this);
     this.handleAnswerClick = this.handleAnswerClick.bind(this);
     this.setClassname = this.setClassname.bind(this);
+    this.nextQuestion = this.nextQuestion.bind(this);
   }
 
   componentDidUpdate(_prevProps, prevState) {
@@ -68,7 +69,6 @@ class Trivia extends Component {
 
         </button>
       ));
-
     return allAnswers;
   }
 
@@ -97,9 +97,25 @@ class Trivia extends Component {
     this.setState({ answered: true });
   }
 
+  nextQuestion() {
+    const { questions, history } = this.props;
+    const { questionIndex } = this.state;
+    clearInterval(this.timerID);
+    if (questionIndex < (questions.length - 1)) {
+      this.setState((prevState) => ({
+        questionIndex: prevState.questionIndex + 1,
+        answered: false,
+        firstTime: true,
+        seconds: 30,
+      }));
+    } else {
+      history.push('/feedback');
+    }
+  }
+
   render() {
     const { questions } = this.props;
-    const { firstTime, questionIndex, seconds } = this.state;
+    const { firstTime, questionIndex, seconds, answered } = this.state;
     if (questions && firstTime) {
       const answersArray = [
         ...questions[questionIndex].incorrect_answers,
@@ -107,20 +123,34 @@ class Trivia extends Component {
       this.setState({
         answersArr: this.shuffleArray(answersArray),
         firstTime: false,
-        correctAnswer: questions[0].correct_answer,
+        correctAnswer: questions[questionIndex].correct_answer,
       });
       this.setTimer();
     }
+
+    const nextButton = (
+      <button
+        data-testid="btn-next"
+        type="button"
+        onClick={ this.nextQuestion }
+      >
+        {' '}
+        Próximo
+        {' '}
+
+      </button>);
+
     return (
       <div>
         <Header />
         {
           questions && (
             <>
-              <p data-testid="question-category">{questions[0].category}</p>
-              <p data-testid="question-text">{questions[0].question}</p>
+              <p data-testid="question-category">{questions[questionIndex].category}</p>
+              <p data-testid="question-text">{questions[questionIndex].question}</p>
               { this.getAnswers() }
               <p>{ seconds }</p>
+              {answered && nextButton }
             </>
           )
         }
@@ -131,6 +161,7 @@ class Trivia extends Component {
 
 Trivia.propTypes = {
   questions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  history: PropTypes.shape().isRequired,
 };
 
 const mapStateToProps = (state) => ({

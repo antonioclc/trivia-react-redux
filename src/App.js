@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router';
 import Configurations from './pages/Configurations';
 import Login from './pages/Login';
 import Trivia from './pages/Trivia';
+import Feedback from './pages/Feedback';
 
 export default function App() {
   return (
@@ -19,6 +20,10 @@ export default function App() {
       <Route
         path="/configurations"
         component={ Configurations }
+      />
+      <Route
+        path="/feedback"
+        component={ Feedback }
       />
     </Switch>
   );
