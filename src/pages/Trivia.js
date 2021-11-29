@@ -6,6 +6,7 @@ import { updatePoints } from '../actions';
 
 const ONE_SECOND = 1000;
 const TIME_LIMIT = 0;
+const ansewok = 'correct-answer';
 
 class Trivia extends Component {
   constructor() {
@@ -44,14 +45,14 @@ class Trivia extends Component {
   setClassname(answer) {
     const { answered, correctAnswer } = this.state;
     if (answered) {
-      return answer !== correctAnswer ? 'incorrect-answer' : 'correct-answer';
+      return answer !== correctAnswer ? 'incorrect-answer' : ansewok;
     }
     return '';
   }
 
   getAnswers() {
     const { answersArr, correctAnswer, answered } = this.state;
-    const StrCorrectAnswer = 'correct-answer';
+    const StrCorrectAnswer = ansewok;
     const allAnswers = answersArr
       // .filter((answer) => answer !== correctAnswer)
       .map((answer, index) => (
