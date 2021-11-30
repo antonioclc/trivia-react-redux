@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
-import { updatePoints } from '../actions';
+import { updatePoints, updateSuccess } from '../actions';
 
 const ONE_SECOND = 1000;
 const TIME_LIMIT = 0;
+const answeredOk = 'correct-answer';
 
 class Trivia extends Component {
   constructor() {
@@ -19,12 +20,14 @@ class Trivia extends Component {
       questionIndex: 0,
       seconds: 30,
       difficulty: '',
+      assertions: 0,
     };
 
     this.getAnswers = this.getAnswers.bind(this);
     this.shuffleArray = this.shuffleArray.bind(this);
     this.handleAnswerClick = this.handleAnswerClick.bind(this);
     this.setClassname = this.setClassname.bind(this);
+    this.nextQuestion = this.nextQuestion.bind(this);
   }
 
   componentDidUpdate(_prevProps, prevState) {
@@ -44,14 +47,14 @@ class Trivia extends Component {
   setClassname(answer) {
     const { answered, correctAnswer } = this.state;
     if (answered) {
-      return answer !== correctAnswer ? 'incorrect-answer' : 'correct-answer';
+      return answer !== correctAnswer ? 'incorrect-answer' : answeredOk;
     }
     return '';
   }
 
   getAnswers() {
     const { answersArr, correctAnswer, answered } = this.state;
-    const StrCorrectAnswer = 'correct-answer';
+    const StrCorrectAnswer = answeredOk;
     const allAnswers = answersArr
       // .filter((answer) => answer !== correctAnswer)
       .map((answer, index) => (
@@ -70,7 +73,6 @@ class Trivia extends Component {
 
         </button>
       ));
-
     return allAnswers;
   }
 
@@ -97,11 +99,12 @@ class Trivia extends Component {
 
   handleAnswerClick({ target }) {
     const { difficulty, seconds } = this.state;
-    const { setPoints, points } = this.props;
-    const getObjPlayer = JSON.parse(localStorage.getItem('state'));
     // let scoreActual = getObjPlayer.player.score;
+    const { setPoints, points, setSuccess } = this.props;
     if (target.name === 'correct-answer') {
       // const previewPoints = localStorage.getItem('points') || 0;
+      const getObjPlayer = JSON.parse(localStorage.getItem('state'));
+      this.setState((prevState) => ({ assertions: prevState.assertions + 1 }));
       const difficultyPoints = { easy: 1, medium: 2, hard: 3 };
       const basicPoint = 10;
       const questionPoints = basicPoint + (seconds * difficultyPoints[difficulty]);
@@ -109,13 +112,34 @@ class Trivia extends Component {
       getObjPlayer.player.score = totalPoints;
       localStorage.setItem('state', JSON.stringify(getObjPlayer));
       setPoints(totalPoints);
+      setSuccess();
     }
     this.setState({ answered: true });
   }
 
+  nextQuestion() {
+    const { questions, history } = this.props;
+    const { questionIndex } = this.state;
+    clearInterval(this.timerID);
+    if (questionIndex < (questions.length - 1)) {
+      this.setState((prevState) => ({
+        questionIndex: prevState.questionIndex + 1,
+        answered: false,
+        firstTime: true,
+        seconds: 30,
+      }));
+    } else {
+      const { assertions } = this.state;
+      const getObjPlayer = JSON.parse(localStorage.getItem('state'));
+      getObjPlayer.player.assertions = assertions;
+      localStorage.setItem('state', JSON.stringify(getObjPlayer));
+      history.push('/feedback');
+    }
+  }
+
   render() {
     const { questions } = this.props;
-    const { firstTime, questionIndex, seconds, difficulty } = this.state;
+    const { firstTime, questionIndex, seconds, difficulty, answered } = this.state;
     if (questions && firstTime) {
       const answersArray = [
         ...questions[questionIndex].incorrect_answers,
@@ -128,17 +152,31 @@ class Trivia extends Component {
       });
       this.setTimer();
     }
+
+    const nextButton = (
+      <button
+        data-testid="btn-next"
+        type="button"
+        onClick={ this.nextQuestion }
+      >
+        {' '}
+        Próximo
+        {' '}
+
+      </button>);
+
     return (
       <div>
         <Header />
         {
           questions && (
             <>
-              <p data-testid="question-category">{questions[0].category}</p>
-              <p data-testid="question-text">{questions[0].question}</p>
-              { this.getAnswers() }
-              <p>{ seconds }</p>
-              <p>{ difficulty }</p>
+              <p data-testid="question-category">{questions[questionIndex].category}</p>
+              <p data-testid="question-text">{questions[questionIndex].question}</p>
+              {this.getAnswers()}
+              <p>{seconds}</p>
+              {answered && nextButton}
+              <p>{difficulty}</p>
             </>
           )
         }
@@ -149,17 +187,21 @@ class Trivia extends Component {
 
 Trivia.propTypes = {
   questions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  history: PropTypes.shape().isRequired,
   setPoints: PropTypes.func.isRequired,
+  setSuccess: PropTypes.func.isRequired,
   points: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   questions: state.playerReducer.questions.results,
   points: state.playerReducer.points,
+  numberOfSuccess: state.playerReducer.answeredCorrectly,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setPoints: (points) => dispatch(updatePoints(points)),
+  setSuccess: () => dispatch(updateSuccess()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Trivia);
