@@ -3,6 +3,7 @@ export const SAVE_TOKEN_DATA = 'SAVE_TOKEN_DATA';
 export const SAVE_QUESTIONS_DATA = 'SAVE_QUESTIONS_DATA';
 export const UPDATE_POINTS = 'UPDATE_POINTS';
 export const UPDATE_SUCCESS = 'UPDATE_SUCCESS';
+export const RESET_PLAYER = 'RESET_PLAYER';
 
 export const saveToken = (payload) => ({
   type: SAVE_TOKEN_DATA,
@@ -43,4 +44,8 @@ export const updatePoints = (payload) => ({
 
 export const updateSuccess = () => ({
   type: UPDATE_SUCCESS,
+});
+
+export const resetPlayer = () => ({
+  type: RESET_PLAYER,
 });

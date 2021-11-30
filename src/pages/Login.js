@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { setUserData, getTokenThunk } from '../actions';
+import { setUserData, getTokenThunk, resetPlayer } from '../actions';
 
 class Login extends Component {
   constructor() {
@@ -15,6 +15,12 @@ class Login extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    const { resetData } = this.props;
+    resetData();
+    localStorage.removeItem('state');
   }
 
   handleChange({ target }) {
@@ -123,6 +129,7 @@ class Login extends Component {
 Login.propTypes = {
   dispatchSetValue: PropTypes.func.isRequired,
   dispatchTokenThunk: PropTypes.func.isRequired,
+  resetData: PropTypes.func.isRequired,
   history: PropTypes.shape().isRequired,
 };
 
@@ -133,6 +140,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   dispatchSetValue: (state) => dispatch(setUserData(state)),
   dispatchTokenThunk: () => dispatch(getTokenThunk()),
+  resetData: () => dispatch(resetPlayer()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
