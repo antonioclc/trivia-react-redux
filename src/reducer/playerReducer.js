@@ -1,5 +1,5 @@
 import { SET_USER_DATA, SAVE_TOKEN_DATA, SAVE_QUESTIONS_DATA,
-  UPDATE_POINTS, UPDATE_SUCCESS } from '../actions';
+  UPDATE_POINTS, UPDATE_SUCCESS, RESET_PLAYER } from '../actions';
 
 const INITIAL_STATE = {
   name: '',
@@ -39,6 +39,8 @@ export default function playerReducer(state = INITIAL_STATE, action) {
       ...state,
       answeredCorrectly: answeredCorrectly + 1,
     };
+  case RESET_PLAYER:
+    return INITIAL_STATE;
   default: return state;
   }
 }
