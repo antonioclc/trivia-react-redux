@@ -39,35 +39,37 @@ class Feedback extends Component {
     const { numberOfSuccess, totalScore } = this.props;
     return (
       <div>
-        <Header />
-        <p data-testid="feedback-text">
-          {' '}
-          {
-            this.feedbackMessageGenerator()
-          }
-          {' '}
-
-        </p>
-        <p data-testid="feedback-total-score">
-          { totalScore }
-        </p>
-        <p data-testid="feedback-total-question">
-          { numberOfSuccess }
-        </p>
-        <button
-          data-testid="btn-play-again"
-          type="button"
-          onClick={ this.playAgain }
-        >
-          Jogar novamente
-        </button>
-        <button
-          data-testid="btn-ranking"
-          type="button"
-          onClick={ this.showRanking }
-        >
-          Ver Ranking
-        </button>
+        <div className="feedback-container">
+          <Header />
+          <h1 data-testid="feedback-text">
+            {this.feedbackMessageGenerator()}
+          </h1>
+          <h3 data-testid="feedback-total-score">
+            {totalScore}
+          </h3>
+          <h3 data-testid="feedback-total-question">
+            {numberOfSuccess}
+          </h3>
+        </div>
+        <div className="feedback-btn-container">
+          <button
+            className="feedback-btn"
+            data-testid="btn-play-again"
+            type="button"
+            onClick={ this.playAgain }
+          >
+            Jogar novamente
+          </button>
+          <button
+            className="feedback-btn"
+            data-testid="btn-ranking"
+            type="button"
+            onClick={ this.showRanking }
+          >
+            {' '}
+            Ver Ranking
+          </button>
+        </div>
       </div>
     );
   }

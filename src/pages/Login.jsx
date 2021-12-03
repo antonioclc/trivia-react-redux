@@ -79,14 +79,14 @@ class Login extends Component {
   render() {
     const { name, email, disableBtn } = this.state;
     return (
-      <>
-        <form onSubmit={ this.handleSubmit }>
+      <div className="container-form-login">
+        <form className="form-login" onSubmit={ this.handleSubmit }>
           <label htmlFor="input-player-name">
-            Nome:
+            <p className="form-title">Nome:</p>
             <input
+              className="input-login"
               type="text"
               data-testid="input-player-name"
-              id="input-player-name"
               name="name"
               value={ name }
               placeholder="Digite aqui seu nome"
@@ -94,11 +94,11 @@ class Login extends Component {
             />
           </label>
           <label htmlFor="input-gravatar-email">
-            Email:
+            <p className="form-title">Email:</p>
             <input
+              className="input-login"
               type="email"
               data-testid="input-gravatar-email"
-              id="input-gravatar-email"
               name="email"
               value={ email }
               placeholder="Digite aqui seu email"
@@ -106,6 +106,7 @@ class Login extends Component {
             />
           </label>
           <button
+            className="send-login"
             data-testid="btn-play"
             type="submit"
             id="btn-play"
@@ -115,13 +116,14 @@ class Login extends Component {
           </button>
         </form>
         <button
+          className="send-login"
           type="button"
           data-testid="btn-settings"
           onClick={ () => this.configurationRedirect() }
         >
           Configurações
         </button>
-      </>
+      </div>
     );
   }
 }

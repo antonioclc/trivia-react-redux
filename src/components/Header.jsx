@@ -29,14 +29,16 @@ class Header extends Component {
     const { name, points } = this.props;
     const { gravatar } = this.state;
     return (
-      <header>
-        <h2 data-testid="header-player-name">{ name }</h2>
-        <h3 data-testid="header-score">{ points }</h3>
-        <img
-          data-testid="header-profile-picture"
-          src={ `https://www.gravatar.com/avatar/${gravatar}` }
-          alt="gravatarimg"
-        />
+      <header className="header-container">
+        <div className="header-user">
+          <h2 data-testid="header-player-name">{ name }</h2>
+          <h3 data-testid="header-score">{ points }</h3>
+          <img
+            data-testid="header-profile-picture"
+            src={ `https://www.gravatar.com/avatar/${gravatar}` }
+            alt="gravatarimg"
+          />
+        </div>
       </header>
     );
   }

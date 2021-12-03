@@ -28,14 +28,28 @@ class Ranking extends Component {
           const { gravatarEmail, name, score } = player.player;
           const stringConverted = md5(gravatarEmail).toString();
           return (
-            <li key={ index }>
+            <li key={ index } className="ranking-player">
+              <p className="ranking-position-number">{`${index + 1}º`}</p>
               <img
                 src={ `https://www.gravatar.com/avatar/${stringConverted}` }
                 alt="gravatarimg"
               />
-              {' '}
-              <p data-testid={ `player-name-${index}` }>{ name }</p>
-              <p data-testid={ `player-score-${index}` }>{ score }</p>
+              <div className="r-p-name-score">
+                <h2
+                  className="rr-p-name-score-text"
+                  data-testid={ `player-name-${index}` }
+                >
+                  { name }
+
+                </h2>
+                <p
+                  className="r-p-name-score-text"
+                  data-testid={ `player-score-${index}` }
+                >
+                  { score }
+
+                </p>
+              </div>
             </li>
           );
         })
@@ -44,7 +58,7 @@ class Ranking extends Component {
 
   render() {
     return (
-      <div>
+      <div className="ranking-container">
         <h1 data-testid="ranking-title">
           Ranking
         </h1>
@@ -54,6 +68,7 @@ class Ranking extends Component {
           }
         </ol>
         <button
+          className="ranking-btn"
           data-testid="btn-go-home"
           type="button"
           onClick={ this.goHome }
