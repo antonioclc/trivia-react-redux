@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -18,4 +20,300 @@ code {
 
 .incorrect-answer {
   border: 3px solid red
+}
+
+/* >>>>> 🔻LOGIN🔻 <<<< */
+.container-form-login {
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  margin-top: 200px;
+}
+
+.trivia-img {
+  width: 200px;
+  height: 80px;
+  margin-bottom: 15px;
+}
+
+.form-login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 450px;
+  height: 400px;
+  left: 372px;
+  top: 431px;
+  background: #FFFFFF;
+  box-shadow: 5px 4px 4px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+
+.form-rectangle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 697px;
+  height: 314px;
+  left: 372px;
+  top: 431px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+
+.input-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 16px;
+  text-align: center; 
+  margin-bottom: 15px;
+  width: 300px;
+  height: 10px;
+  left: 454px;
+  top: 525px;
+  background: #FFFFFF;
+  border: 1px solid #bec1c7;
+  border-radius: 50px;
+  font-size: 20px;
+}
+
+.send-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 12px;
+  width: 200px;
+  height: 33px;
+  background: #003BE5;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 50px;
+  color: #FFFFFF;
+  font-family: Verdana;
+  font-size: 20px;
+}
+
+.form-title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  font-family: Verdana;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 30px;
+  padding: 0px;
+  margin: 0px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+}
+
+/* >>>>> 🔻HEADER🔻 <<<< */
+
+.header-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.header-user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-user img {
+  border-radius: 25px;
+  border: 1px solid rgb(119, 117, 117);
+  margin-right: 15px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.header-user h2 {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* >>>>> 🔻TRIVIA🔻 <<<< */
+
+.trivia-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.trivia-category {
+  margin-top:50px;
+  width: 800px;
+  box-shadow: 2px 4px 4px 5px rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+
+}
+
+.trivia-question {
+  width: 800px;
+  height: 100px;
+  box-shadow: 2px 4px 4px 5px rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 15px;
+  font-size: 20px;
+}
+
+.trivia-answers {
+  display: flex;
+  width: 700px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.trivia-answers button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
+  width: 200px;
+  height: 60px;
+  background: #003BE5;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 50px;
+  color: #FFFFFF;
+  font-family: Verdana;
+  font-size: 16px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.trivia-timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  border: 3px solid rgb(146, 146, 146);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 50px;
+  width: 50px;
+  height: 50px;
+}
+
+.trivia-next-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
+  width: 120px;
+  height: 30px;
+  background: #003BE5;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 50px;
+  color: #FFFFFF;
+  font-family: Verdana;
+  font-size: 16px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* >>>>> 🔻FEEDBACK🔻<<<< */
+
+.feedback-container {
+  margin-top: 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.feedback-btn-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 300px;
+}
+
+.feedback-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
+  width: 120px;
+  height: 50px;
+  background: #003BE5;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 50px;
+  color: #FFFFFF;
+  font-family: Verdana;
+  font-size: 16px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* >>>>> 🔻RANKING🔻<<<< */
+
+.ranking-container {
+  margin-top: 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ranking-position-number {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  border: 3px solid rgb(128, 149, 177);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 50px;
+  width: 100px;
+  height: 50px;
+}
+
+.ranking-player {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 350px;
+}
+
+.ranking-player img {
+  border-radius: 25px;
+  border: 1px solid rgb(119, 117, 117);
+  margin: 15px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+
+.r-p-name-score {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.r-p-name-score p {
+  font-family: 'Poppins', sans-serif;
+  margin: 0px;
+  align-self: center;
+}
+
+.ranking-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
+  width: 120px;
+  height: 50px;
+  background: #003BE5;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 50px;
+  color: #FFFFFF;
+  font-family: Verdana;
+  font-size: 16px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
