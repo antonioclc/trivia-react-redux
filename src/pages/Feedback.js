@@ -21,8 +21,8 @@ class Feedback extends Component {
   feedbackMessageGenerator() {
     const { numberOfSuccess } = this.props;
     const MIN = 3;
-    if (numberOfSuccess < MIN) return 'Podia ser melhor...';
-    return 'Mandou bem!';
+    if (numberOfSuccess < MIN) return 'Podia ser melhor...😓';
+    return 'Mandou bem! 😜';
   }
 
   playAgain() {
@@ -39,36 +39,44 @@ class Feedback extends Component {
     const { numberOfSuccess, totalScore } = this.props;
     return (
       <div>
+        <Header />
         <div className="feedback-container">
-          <Header />
           <h1 data-testid="feedback-text">
-            {this.feedbackMessageGenerator()}
+            {' '}
+            {
+              this.feedbackMessageGenerator()
+            }
+            {' '}
+
           </h1>
           <h3 data-testid="feedback-total-score">
-            {totalScore}
+            Pontuação:
+            {' '}
+            { totalScore }
           </h3>
           <h3 data-testid="feedback-total-question">
-            {numberOfSuccess}
-          </h3>
-        </div>
-        <div className="feedback-btn-container">
-          <button
-            className="feedback-btn"
-            data-testid="btn-play-again"
-            type="button"
-            onClick={ this.playAgain }
-          >
-            Jogar novamente
-          </button>
-          <button
-            className="feedback-btn"
-            data-testid="btn-ranking"
-            type="button"
-            onClick={ this.showRanking }
-          >
+            Respostas certas:
             {' '}
-            Ver Ranking
-          </button>
+            { numberOfSuccess }
+          </h3>
+          <div className="feedback-btn-container">
+            <button
+              className="feedback-btn"
+              data-testid="btn-play-again"
+              type="button"
+              onClick={ this.playAgain }
+            >
+              Jogar novamente
+            </button>
+            <button
+              className="feedback-btn"
+              data-testid="btn-ranking"
+              type="button"
+              onClick={ this.showRanking }
+            >
+              Ver Ranking
+            </button>
+          </div>
         </div>
       </div>
     );

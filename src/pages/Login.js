@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setUserData, getTokenThunk, resetPlayer } from '../actions';
+import trivia from './trivia.png';
 
 class Login extends Component {
   constructor() {
@@ -81,12 +82,14 @@ class Login extends Component {
     return (
       <div className="container-form-login">
         <form className="form-login" onSubmit={ this.handleSubmit }>
+          <img className="trivia-img" src={ trivia } />
           <label htmlFor="input-player-name">
             <p className="form-title">Nome:</p>
             <input
               className="input-login"
               type="text"
               data-testid="input-player-name"
+              id="input-player-name"
               name="name"
               value={ name }
               placeholder="Digite aqui seu nome"
@@ -99,6 +102,7 @@ class Login extends Component {
               className="input-login"
               type="email"
               data-testid="input-gravatar-email"
+              id="input-gravatar-email"
               name="email"
               value={ email }
               placeholder="Digite aqui seu email"
@@ -112,17 +116,17 @@ class Login extends Component {
             id="btn-play"
             disabled={ disableBtn }
           >
-            Jogar
+            ▶ Jogar
+          </button>
+          <button
+            className="send-login"
+            type="button"
+            data-testid="btn-settings"
+            onClick={ () => this.configurationRedirect() }
+          >
+            🔧 Configurações
           </button>
         </form>
-        <button
-          className="send-login"
-          type="button"
-          data-testid="btn-settings"
-          onClick={ () => this.configurationRedirect() }
-        >
-          Configurações
-        </button>
       </div>
     );
   }

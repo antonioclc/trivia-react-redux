@@ -21,7 +21,6 @@ class Ranking extends Component {
 
   renderRanking() {
     const players = JSON.parse(localStorage.getItem('ranking'));
-    console.log(players);
     return (
       players.sort((a, b) => b.player.score - a.player.score)
         .map((player, index) => {
@@ -34,21 +33,10 @@ class Ranking extends Component {
                 src={ `https://www.gravatar.com/avatar/${stringConverted}` }
                 alt="gravatarimg"
               />
-              <div className="r-p-name-score">
-                <h2
-                  className="rr-p-name-score-text"
-                  data-testid={ `player-name-${index}` }
-                >
-                  { name }
-
-                </h2>
-                <p
-                  className="r-p-name-score-text"
-                  data-testid={ `player-score-${index}` }
-                >
-                  { score }
-
-                </p>
+              {' '}
+              <div className="ranking-player-name-and-score">
+                <h2 className="ranking-player-name-and-score-text" data-testid={ `player-name-${index}` }>{ name }</h2>
+                <p className="ranking-player-name-and-score-text" data-testid={ `player-score-${index}` }>{ score } pontos</p>
               </div>
             </li>
           );
@@ -60,7 +48,7 @@ class Ranking extends Component {
     return (
       <div className="ranking-container">
         <h1 data-testid="ranking-title">
-          Ranking
+          🏆 Ranking 🏆
         </h1>
         <ol>
           {

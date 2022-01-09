@@ -152,6 +152,7 @@ class Trivia extends Component {
       });
       this.setTimer();
     }
+
     const nextButton = (
       <button
         className="trivia-next-btn"
@@ -159,33 +160,43 @@ class Trivia extends Component {
         type="button"
         onClick={ this.nextQuestion }
       >
+        {' '}
         Próximo
+        {' '}
+
       </button>);
+
     return (
       <div>
         <Header />
         <div className="trivia-container">
           {
             questions && (
-              <div className="trivia-category">
-                <p
-                  className="trivia-question"
-                  data-testid="question-category"
-                >
-                  {questions[questionIndex].category}
-                </p>
-                <p data-testid="question-text">{questions[questionIndex].question}</p>
+              <>
+                <div className="trivia-category">
+                  <p data-testid="question-category">
+                    Categoria:
+                    {' '}
+                    {questions[questionIndex].category}
+                  </p>
+                  <p>
+                    Dificuldade:
+                    {' '}
+                    {difficulty}
+                  </p>
+                </div>
+                <p className="trivia-question" data-testid="question-text">{questions[questionIndex].question}</p>
                 <div className="trivia-answers">
-                  {this.getAnswers()}
+                {this.getAnswers()}
                 </div>
                 <p className="trivia-timer">{seconds}</p>
                 {answered && nextButton}
-                <p>{difficulty}</p>
-              </div>
+              </>
             )
           }
         </div>
-      </div>);
+      </div>
+    );
   }
 }
 

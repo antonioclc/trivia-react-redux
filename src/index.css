@@ -15,14 +15,15 @@ code {
 }
 
 .correct-answer {
-  border: 3px solid rgb(6, 240, 15)
+  border: 5px solid rgb(6, 240, 15)
 }
 
 .incorrect-answer {
-  border: 3px solid red
+  border: 5px solid red
 }
 
 /* >>>>> 🔻LOGIN🔻 <<<< */
+
 .container-form-login {
   display: flex;
   justify-content:center;
@@ -288,7 +289,7 @@ code {
 }
 
 
-.r-p-name-score {
+.ranking-player-name-and-score {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -296,7 +297,7 @@ code {
   width: 100%;
 }
 
-.r-p-name-score p {
+.ranking-player-name-and-score p {
   font-family: 'Poppins', sans-serif;
   margin: 0px;
   align-self: center;

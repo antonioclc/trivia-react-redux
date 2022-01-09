@@ -31,14 +31,18 @@ class Header extends Component {
     return (
       <header className="header-container">
         <div className="header-user">
-          <h2 data-testid="header-player-name">{ name }</h2>
-          <h3 data-testid="header-score">{ points }</h3>
           <img
             data-testid="header-profile-picture"
             src={ `https://www.gravatar.com/avatar/${gravatar}` }
             alt="gravatarimg"
           />
+          <h2 data-testid="header-player-name">{ name }</h2>
         </div>
+        <h3 data-testid="header-score">
+          Sua pontuação:
+          {' '}
+          { points }
+        </h3>
       </header>
     );
   }
