@@ -1,4 +1,4 @@
-<h1>Frontend Online Store</h1>
+<h1>Trivia</h1>
 <h2>Apresentação</h2>
 <img src="https://github.com/antonioclc/trivia-react-redux/blob/main/public/trivia-login.png?raw=true">
 <p>Este game testa seus conhecimentos gerais, com 5 perguntas e 3 níveis de dificuldade, ao final, você verá sua pontuação e o ranking dos usuários que jogaram. Vamos jogar!</p>
