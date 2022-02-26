@@ -42,7 +42,7 @@ A partir daqui você já estará com tudo pronto na sua máquina local, para abr
     npm start
 
 <h2>Sobre a Trybe</h2>
-<img src="https://media-exp1.licdn.com/dms/image/C4E16AQEsqcF3dviA-A/profile-displaybackgroundimage-shrink_200_800/0/1628693865181?e=1644451200&v=beta&t=fcNz6iiGqar2iOL5cMPsFTl3Vt0p9yFf1an7viCg6cU" />
+<img src="https://media-exp1.licdn.com/dms/image/C4D16AQHqoIThl0YnyQ/profile-displaybackgroundimage-shrink_350_1400/0/1626200034144?e=1651104000&v=beta&t=z36EX-_mvnCry67IVhm0vu7C7LDv4mSrhiePjNwdIk0" />
 <p>Este projeto foi desenvolvido durante minha jornada na Trybe, escola na qual recomendo fortemente a qualquer pessoa que queira, com muito esforço e dedicação, iniciar a sua carreira na área de tecnologia.</p>
 <p>"A Trybe é uma escola do futuro para qualquer pessoa que queira melhorar de vida e construir uma carreira de sucesso em tecnologia, onde a pessoa só paga quando conseguir um bom trabalho."</p>
 <p>O programa conta com mais de 1.500 horas de aulas presenciais e/ou online, aborda introdução ao desenvolvimento de software, front-end, back-end, ciência da computação, engenharia de software, metodologias ágeis e habilidades comportamentais.</p>
